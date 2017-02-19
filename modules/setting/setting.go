@@ -170,6 +170,7 @@ var (
 	Repository = struct {
 		AnsiCharset            string
 		ForcePrivate           bool
+		ForceBare              bool
 		MaxCreationLimit       int
 		MirrorQueueLength      int
 		PullRequestQueueLength int
@@ -199,6 +200,7 @@ var (
 	}{
 		AnsiCharset:            "",
 		ForcePrivate:           false,
+		ForceBare:              false,
 		MaxCreationLimit:       -1,
 		MirrorQueueLength:      1000,
 		PullRequestQueueLength: 1000,

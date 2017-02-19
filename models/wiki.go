@@ -69,7 +69,7 @@ func (repo *Repository) InitWiki() error {
 
 	if err := git.InitRepository(repo.WikiPath(), true); err != nil {
 		return fmt.Errorf("InitRepository: %v", err)
-	} else if err = createDelegateHooks(repo.WikiPath()); err != nil {
+	} else if err = createDelegateHooks(repo.WikiPath(), true); err != nil {
 		return fmt.Errorf("createDelegateHooks: %v", err)
 	}
 	return nil

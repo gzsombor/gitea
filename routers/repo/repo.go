@@ -94,7 +94,9 @@ func Create(ctx *context.Context) {
 	ctx.Data["Readmes"] = models.Readmes
 	ctx.Data["readme"] = "Default"
 	ctx.Data["private"] = ctx.User.LastRepoVisibility
+	ctx.Data["bare"] = true
 	ctx.Data["IsForcedPrivate"] = setting.Repository.ForcePrivate
+	ctx.Data["IsForcedBare"] = setting.Repository.ForceBare
 
 	ctxUser := checkContextUser(ctx, ctx.QueryInt64("org"))
 	if ctx.Written() {
@@ -150,6 +152,7 @@ func CreatePost(ctx *context.Context, form auth.CreateRepoForm) {
 		Readme:      form.Readme,
 		IsPrivate:   form.Private || setting.Repository.ForcePrivate,
 		AutoInit:    form.AutoInit,
+		IsBare:      form.Bare || setting.Repository.ForceBare,
 	})
 	if err == nil {
 		log.Trace("Repository created [%d]: %s/%s", repo.ID, ctxUser.Name, repo.Name)
@@ -171,6 +174,8 @@ func Migrate(ctx *context.Context) {
 	ctx.Data["Title"] = ctx.Tr("new_migrate")
 	ctx.Data["private"] = ctx.User.LastRepoVisibility
 	ctx.Data["IsForcedPrivate"] = setting.Repository.ForcePrivate
+	ctx.Data["bare"] = true
+	ctx.Data["IsForcedBare"] = setting.Repository.ForceBare
 	ctx.Data["mirror"] = ctx.Query("mirror") == "1"
 	ctx.Data["LFSActive"] = setting.LFS.StartServer
 
